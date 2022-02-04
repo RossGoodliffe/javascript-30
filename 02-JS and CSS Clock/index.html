@@ -62,13 +62,60 @@
       background: black;
       position: absolute;
       top: 50%;
+
+      /* Origin is were the rotation is going to come from (default 50) along the x axis */
+      transform-origin: 100%;
+      /* rotate to start */
+      transform: rotate(90deg);
+      transition: all 0.05s;
+
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+
+    .hour-hand {
+      background-color: red;
     }
 
   </style>
 
-  <script>
+<script>
 
+const secondHand = document.querySelector('.second-hand');
+const minHand = document.querySelector('.min-hand');
+const hourHand = document.querySelector('.hour-hand');
 
-  </script>
+function setDate() {
+  const now = new Date();
+  const seconds = now.getSeconds();
+
+  // adding +90 at the end to offset the original rotate
+  const secondsDegrees = ((seconds / 60) * 360) + 90;
+  secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+  // My attempt at min/hour before watching
+  const minutes = now.getMinutes();
+  const minDegrees = ((minutes / 60) * 360) + 90;
+  minHand.style.transform = `rotate(${minDegrees}deg)`;
+
+  const hours = now.getHours();
+  const hourDegrees = ((hours / 12) * 360) + 90;
+  hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+
+  // My attempt at removing issue when it fully roates, it goes back on itself rather than clocking forward
+  // NOT WORKING
+  // if(secondsDegrees == 450 || minDegrees == 450 || hourDegrees == 450){
+  //   const hand = document.querySelectorAll('.hand');
+
+  //   hand.style.trasition = '';
+  // } else {
+  //   secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+  //   minHand.style.transform = `rotate(${minDegrees}deg)`;
+  //   hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+  // }
+
+}
+
+setInterval(setDate, 1000);
+</script>
 </body>
 </html>
