@@ -34,7 +34,8 @@ function takePhoto() {
     snap.play();
 
     // Take the data out of the canvas
-    const data = cavas.toDataURL('image/jpeg');
+    const data = canvas.toDataURL('image/jpeg');
+
 
 
 }
